@@ -29,16 +29,17 @@ const Step = ({
   number,
   title,
   children,
-}: PropsWithChildren & { number: number; title: string }) => (
+  isLast,
+}: PropsWithChildren & { number: number; title: string; isLast?: boolean }) => (
   <div className="flex">
-    <div className="flex flex-col">
+    <div className="flex flex-col pr-4">
       <div className="text-xs uppercase text-zinc-500 font-[family-name:var(--font-ibm-plex-mono)">
         0{number}
       </div>
-      <div className="m-auto flex-1 w-[1px] bg-zinc-200" />
+      {!isLast && <div className="m-auto flex-1 w-[1px] bg-zinc-200" />}
     </div>
-    <div className="flex-1 flex flex-col">
-      <h2 className="text-zinc-700">{title}</h2>
+    <div className={`flex-1 flex flex-col ${isLast ? "" : "pb-12"}`}>
+      <h2 className="text-zinc-700 leading-none pb-4">{title}</h2>
       {children}
     </div>
   </div>
@@ -48,12 +49,9 @@ export const StepsSection = () => {
   const [icsUrl, setIcsUrl] = useState("");
   const [calendarName, setCalendarName] = useState("");
   const [email, setEmail] = useState("");
+  const [isCopied, setIsCopied] = useState(false);
 
-  const { success: isIcsUrlValid } = z
-    .string()
-    .url()
-    .catch("")
-    .safeParse(icsUrl);
+  const { success: isIcsUrlValid } = z.string().url().safeParse(icsUrl);
 
   const mcpUrl = `${
     process.env.VERCEL_PROJECT_PRODUCTION_URL ?? "http://localhost:3000/"
@@ -61,8 +59,15 @@ export const StepsSection = () => {
   ${encodeURIComponent(email)}icsUrl=
   ${encodeURIComponent(icsUrl)}`;
 
+  const isMcpUrlRegenerating = false; // TODO: Should be true for 500ms after any field changes
+
+  const isMcpUrlVisible =
+    isIcsUrlValid && calendarName && email && !isMcpUrlRegenerating;
+
+  // TODO: Add step by step disabled steps
+
   return (
-    <section className="px-4 py-16 w-full flex flex-col max-w-2xl">
+    <section className="px-4 pb-16 w-full flex flex-col max-w-2xl">
       <Step number={1} title="Copy public calendar link from iCloud">
         <Input
           placeholder="webcal://p136-caldav.icloud.com/published/2/RQFdadfgSDfgadsgfa4gq34AE€GAEFGASDFGArgADF_ASdfgadsfgAFdGAhgtrwf"
@@ -73,22 +78,45 @@ export const StepsSection = () => {
         <div className="flex">
           <div className="flex-1 flex flex-col pr-4">
             <InputLabel>Calendar Name</InputLabel>
-            <Input placeholder={"Tim's calendar"} />
+            <Input
+              placeholder={"Tim's calendar"}
+              onChange={(event) => setCalendarName(event.target.value)}
+            />
           </div>
           <div className="flex-1 flex flex-col">
             <InputLabel>Your Email Address</InputLabel>
-            <Input placeholder="tim@apple.com" />
+            <Input
+              placeholder="tim@apple.com"
+              onChange={(event) => setEmail(event.target.value)}
+            />
           </div>
         </div>
       </Step>
       <Step number={3} title="Copy MCP URL to Claude">
-        <div className="bg-zinc-100 font-[family-name:var(--font-ibm-plex-mono)">
-          { mcpUrl}
-          <button className="border hover:bg-zinc-50">Copy</button>
+        <div
+          className={`p-4 text-sm flex bg-zinc-100 font-[family-name:var(--font-ibm-plex-mono) transition-all duration-500`}
+        >
+          {isMcpUrlVisible ? (
+            <>
+              {mcpUrl}
+              <button
+                className={`cursor-pointer px-4 border border-zinc-200 transition-all active:bg-zinc-100 active:scale-95 ${isCopied ? "bg-zinc-100" : "bg-white hover:bg-zinc-50"}`}
+                onClick={() => setIsCopied(true)}
+              >
+                Copy
+              </button>
+            </>
+          ) : (
+            "..."
+          )}
         </div>
         {/* TODO: Instructions how to add a remote MCP to Claude */}
       </Step>
-      <Step number={4} title="Read your calendar with Claude">
+      <Step isLast number={4} title="Read your calendar with Claude">
+        <p className="text-zinc-500">
+          Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
+          ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
+        </p>
         {/* TODO: Try a prompt. Example: "Find concerts tomorrow in Paris that fit my calendar" */}
       </Step>
     </section>
