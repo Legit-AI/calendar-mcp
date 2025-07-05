@@ -15,8 +15,8 @@ const FooterLink = ({
 );
 
 export const Footer = () => (
-  <footer className="flex justify-center items-center bg-zinc-100 h-6 text-zinc-700 px-4 text-xs">
-    <div className="flex-1 max-w-2xl">
+  <footer className="flex justify-center items-center bg-zinc-100 h-6 text-zinc-700 text-xs">
+    <div className="flex-1 max-w-2xl px-4">
       Built by&nbsp;
       <FooterLink href="https://www.linkedin.com/in/eliasylonen">
         Elias Ylönen
