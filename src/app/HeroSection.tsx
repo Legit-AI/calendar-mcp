@@ -63,8 +63,10 @@ const RotatingText = ({
 
 export const HeroSection = () => (
   <section className="px-4 py-16 w-full flex flex-col max-w-2xl">
-    <h1 className="text-2xl leading-none">Connect your calendar to AI</h1>
-    <div>
+    <h1 className="text-2xl leading-none">
+      Connect your calendar to AI with MCP
+    </h1>
+    <div className="font-[family-name:var(--font-ibm-plex-mono)] uppercase text-zinc-400 text-sm">
       Let{" "}
       <RotatingText
         items={["ChatGPT", "Claude", "N8N"]}
