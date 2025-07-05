@@ -5,14 +5,12 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const RotatingText = ({
   items,
-  interval = 3000,
+  interval = 4000,
   delay = 0,
-  widthMap,
 }: {
-  items: string[];
+  items: { text: string; width: number }[];
   interval?: number;
   delay?: number;
-  widthMap: Record<string, number>;
 }) => {
   const [index, setIndex] = useState(0);
 
@@ -37,24 +35,24 @@ const RotatingText = ({
     };
   }, [items, interval, delay]);
 
-  const current = items[index];
+  const currentItem = items[index];
 
   return (
     <motion.div
-      animate={{ width: widthMap[current] }}
+      animate={{ width: currentItem.width }}
       transition={{ duration: 0.3 }}
       className="inline-block relative"
     >
       <AnimatePresence mode="wait">
         <motion.span
-          key={current}
+          key={currentItem.text}
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -20, opacity: 0 }}
           transition={{ duration: 0.3 }}
           className="absolute left-0"
         >
-          {current}
+          {currentItem.text}
         </motion.span>
       </AnimatePresence>
     </motion.div>
@@ -69,23 +67,19 @@ export const HeroSection = () => (
     <div className="font-[family-name:var(--font-ibm-plex-mono)] uppercase text-zinc-400 text-sm">
       Let{" "}
       <RotatingText
-        items={["ChatGPT", "Claude", "N8N"]}
-        interval={4000}
-        widthMap={{
-          ChatGPT: 70,
-          Claude: 60,
-          N8N: 35,
-        }}
+        items={[
+          { text: "ChatGPT", width: 70 },
+          { text: "Claude", width: 60 },
+          { text: "N8N", width: 35 },
+        ]}
       />{" "}
       read your{" "}
       <RotatingText
-        items={["Google Calendar", "Outlook Calendar"]}
+        items={[
+          { text: "Google Calendar", width: 140 },
+          { text: "Outlook Calendar", width: 145 },
+        ]}
         delay={2000}
-        interval={4000}
-        widthMap={{
-          "Google Calendar": 140,
-          "Outlook Calendar": 145,
-        }}
       />
     </div>
   </section>
