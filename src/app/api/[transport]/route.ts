@@ -3,16 +3,13 @@ import { toSnakeCase } from "@/app/toSnakeCase";
 import { createMcpHandler } from "@vercel/mcp-adapter";
 import z from "zod";
 
-const calendarUrl =
-  "https://calendar.google.com/calendar/ical/your-calendar-id/public/basic.ics";
-
 const searchParamsSchema = z
   .instanceof(URLSearchParams)
   .transform((sp) => Object.fromEntries(sp.entries()))
   .pipe(
     z.object({
       calendarName: z.string().optional(),
-      email: z.string().email(),
+      email: z.string().email().optional(),
       icsUrl: z.string().url(),
     }),
   );
@@ -49,11 +46,11 @@ const handler = (request: Request) => {
     (server) => {
       server.tool(
         `calendar_events${calendarName ? `_${toSnakeCase(calendarName)}` : ""}`,
-        `Fetch ${`"${calendarName}" `}calendar in iCal format. Filter events.`,
+        `Fetch ${calendarName ? `"${calendarName}" ` : ""}calendar in iCal format. Filter and search events.`,
         calendarEventsFiltersSchemaShape,
         async (calendarEventsFilters) => {
           try {
-            const response = await fetch(calendarUrl);
+            const response = await fetch(icsUrl);
             const fullICSContent = await response.text();
             const filteredICSContent = filterICSEvents(
               fullICSContent,
@@ -65,7 +62,7 @@ const handler = (request: Request) => {
             };
           } catch (error: any) {
             console.error(
-              `Error - searchParams: ${JSON.stringify(searchParams)} - error.message: ${error.message}`,
+              `Error: ${error.message}, searchParams: ${JSON.stringify(searchParams)}`,
             );
             return {
               content: [
