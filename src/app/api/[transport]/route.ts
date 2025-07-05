@@ -45,7 +45,7 @@ const handler = (request: Request) => {
   return createMcpHandler(
     (server) => {
       server.tool(
-        `calendar_events${calendarName ? `_${toSnakeCase(calendarName)}` : ""}`,
+        "search", //`calendar_events${calendarName ? `_${toSnakeCase(calendarName)}` : ""}`,
         `Fetch ${calendarName ? `"${calendarName}" ` : ""}calendar in iCal format. Filter and search events.`,
         calendarEventsFiltersSchemaShape,
         async (calendarEventsFilters) => {
