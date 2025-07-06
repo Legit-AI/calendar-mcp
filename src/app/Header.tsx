@@ -7,8 +7,13 @@ export const Header = () => (
     <div className="flex-1 px-4 max-w-2xl">
       <div className="py-4 flex-1 flex justify-between border-b border-zinc-200">
         <Link href="/" className="flex items-center">
-          <LegitLogo className="w-12 h-12" />
-          <div className="pl-4">Calendar MCP</div>
+          {/*<LegitLogo className="w-12 h-12" />*/}
+          <div className="flex flex-col pl-4">
+            <div className="">Calendar MCP</div>
+            <div className="font-[family-name:var(--font-ibm-plex-mono)] text-zinc-400 text-xs">
+              The iCal (.ics) remote MCP server
+            </div>
+          </div>
         </Link>
         <Link
           className="flex items-center px-4 bg-zinc-50 hover:bg-zinc-100 transition-colors duration-500"
