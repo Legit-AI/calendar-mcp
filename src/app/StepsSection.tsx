@@ -4,10 +4,10 @@ import {
   DetailedHTMLProps,
   InputHTMLAttributes,
   PropsWithChildren,
-  useEffect,
   useState,
 } from "react";
 import z from "zod";
+import { MCPConfigurationInstructions } from "./MCPConfigurationInstructions";
 
 const InputLabel = ({ children }: PropsWithChildren) => (
   <label className="text-sm text-zinc-500">{children}</label>
@@ -83,7 +83,10 @@ export const StepsSection = () => {
       >
         <Input
           placeholder="webcal://p136-caldav.icloud.com/published/2/RQFdadfgSDfgadsgfa4gq34AE€GAEFGASDFGArgADF_ASdfgadsfgAFdGAhgtrwf"
-          onChange={(event) => setIcsUrl(event.target.value)}
+          onChange={(event) => {
+            setIcsUrl(event.target.value);
+            setIsCopied(false);
+          }}
         />
       </Step>
       <Step
@@ -97,14 +100,20 @@ export const StepsSection = () => {
             <InputLabel>Calendar Name</InputLabel>
             <Input
               placeholder={"Tim's calendar, Work, Personal..."}
-              onChange={(event) => setCalendarName(event.target.value)}
+              onChange={(event) => {
+                setCalendarName(event.target.value);
+                setIsCopied(false);
+              }}
             />
           </div>
           <div className="flex-1 flex flex-col">
             <InputLabel>Your Email Address</InputLabel>
             <Input
               placeholder="tim@apple.com"
-              onChange={(event) => setEmail(event.target.value)}
+              onChange={(event) => {
+                setEmail(event.target.value);
+                setIsCopied(false);
+              }}
             />
           </div>
         </div>
@@ -117,22 +126,12 @@ export const StepsSection = () => {
         number={3}
         title="Copy MCP URL to Claude"
       >
-        <div
-          className={`p-4 text-sm flex bg-zinc-100 font-[family-name:var(--font-ibm-plex-mono)] transition-all duration-500 ${isIcsUrlValid && isCalendarNameValid && isEmailValid ? "text-zinc-700" : "text-zinc-400"}`}
-        >
-          <div className="flex-1 select-all break-all">
-            {isIcsUrlValid && isCalendarNameValid && isEmailValid
-              ? mcpUrl
-              : "Fill form to get URL..."}
-          </div>
-          <button
-            className={`cursor-pointer ml-4 px-4 py-2 border border-zinc-200 transition-all active:bg-zinc-100 active:scale-95 ${isCopied ? "bg-zinc-100" : "bg-white hover:bg-zinc-50"}`}
-            onClick={() => setIsCopied(true)}
-          >
-            Copy
-          </button>
-        </div>
-        {/* TODO: Instructions how to add a remote MCP to Claude */}
+        <MCPConfigurationInstructions
+          mcpUrl={mcpUrl}
+          isMcpUrlVisible={isIcsUrlValid && isCalendarNameValid && isEmailValid}
+          isCopied={isCopied}
+          onCopyClick={() => setIsCopied(true)}
+        />
       </Step>
       <Step
         isLast
@@ -141,11 +140,14 @@ export const StepsSection = () => {
         }
         isDisabled={!isIcsUrlValid || !isCalendarNameValid || !isEmailValid}
         number={4}
-        title="Read your calendar with Claude"
+        title="Ask Claude about your calendar"
       >
         <p className="text-zinc-500">
-          Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
-          ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
+          Some examples:
+          <br />
+          "How should I prep to my meetings tomorrow?"
+          <br />
+          "Find concerts tomorrow in Paris that fit my calendar?"
         </p>
         {/* TODO: Try a prompt. Example: "Find concerts tomorrow in Paris that fit my calendar" */}
       </Step>

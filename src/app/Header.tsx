@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { GitHubLogo } from "./GitHubLogo";
-import { LegitLogo } from "./LegitLogo";
+import { CalendarMCPLogo } from "./CalendarMCPLogo";
 
 export const Header = () => (
   <header className="flex justify-center">
     <div className="flex-1 px-4 max-w-2xl">
       <div className="py-4 flex-1 flex justify-between border-b border-zinc-200">
         <Link href="/" className="flex items-center">
-          {/*<LegitLogo className="w-12 h-12" />*/}
+          <CalendarMCPLogo className="w-12 h-12 mr-4" />
           <div className="flex flex-col">
             <div className="">Calendar MCP</div>
             <div className="font-[family-name:var(--font-ibm-plex-mono)] text-zinc-400 text-xs">

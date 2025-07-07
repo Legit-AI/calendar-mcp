@@ -8,7 +8,7 @@ export const HeroSection = () => (
       <Image
         className="inline -mt-1 mr-1"
         src="/images/MACOSCalendar.png"
-        alt="Mac OS Calendar icon"
+        alt=""
         width={28}
         height={28}
       />
