@@ -71,7 +71,8 @@ export const StepsSection = () => {
   const { success: isEmailValid } = z.string().email().safeParse(email);
 
   const mcpUrl = `${
-    process.env.VERCEL_PROJECT_PRODUCTION_URL ?? "http://localhost:3000/"
+    process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL ??
+    "http://localhost:3000/"
   }api/mcp/?calendarName=${encodeURIComponent(calendarName)}&email=${encodeURIComponent(email)}&icsUrl=${encodeURIComponent(icsUrl)}`;
 
   return (
