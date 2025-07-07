@@ -5,7 +5,7 @@ import { StepsSection } from "./StepsSection";
 
 export default function Home() {
   return (
-    <div className="flex flex-col font-[family-name:var(--font-ibm-plex-sans)] h-screen">
+    <div className="flex flex-col font-sans h-screen">
       <Header />
       <main className="flex-1 flex flex-col items-center">
         <HeroSection />

@@ -2,6 +2,12 @@ import Link from "next/link";
 import { GitHubLogo } from "./GitHubLogo";
 import { CalendarMCPLogo } from "./CalendarMCPLogo";
 
+const Subtitle = ({ className }: { className?: string }) => (
+  <div className={`font-mono text-zinc-400 text-xs ${className ?? ""}`}>
+    The iCal (.ics) remote MCP server
+  </div>
+);
+
 export const Header = () => (
   <header className="flex justify-center">
     <div className="flex-1 px-4 max-w-2xl">
@@ -12,9 +18,6 @@ export const Header = () => (
           </div>
           <div className="flex flex-col">
             <div className="">Calendar MCP</div>
-            <div className="font-[family-name:var(--font-ibm-plex-mono)] text-zinc-400 text-xs">
-              The iCal (.ics) remote MCP server
-            </div>
           </div>
         </Link>
         <Link
@@ -23,9 +26,10 @@ export const Header = () => (
           target="_blank"
         >
           <GitHubLogo className="w-4 h-4 text-zinc-500" />
-          <div className="pl-2 text-xs">Star on GitHub</div>
+          <div className="pl-2 text-xs">GitHub</div>
         </Link>
       </div>
+      <Subtitle className="xs:hiddend leading-none pt-4" />
     </div>
   </header>
 );

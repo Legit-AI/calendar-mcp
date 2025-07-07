@@ -11,7 +11,7 @@ const MCPURLBox = ({
   isCopied?: boolean;
   onCopyClick: () => any;
 }) => (
-  <div className="p-4 text-sm flex flex-col bg-zinc-100 font-[family-name:var(--font-ibm-plex-mono)] transition-all duration-500">
+  <div className="p-4 text-sm flex flex-col bg-zinc-100 font-mono transition-all duration-500">
     <div
       className={`flex-1 select-all break-all ${isMcpUrlVisible ? "text-zinc-700" : "text-zinc-400"}`}
     >

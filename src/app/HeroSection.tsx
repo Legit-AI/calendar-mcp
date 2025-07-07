@@ -3,17 +3,23 @@ import { ClaudeLogo } from "./ClaudeLogo";
 
 export const HeroSection = () => (
   <section className="px-4 pt-16 pb-10 w-full flex flex-col max-w-2xl">
-    <h1 className="text-3xl leading-none">
+    <h1 className="text-3xl leading-[1.5]">
       Connect{" "}
-      <Image
-        className="inline -mt-1 mr-1"
-        src="/images/MACOSCalendar.png"
-        alt=""
-        width={28}
-        height={28}
-      />
-      Apple Calendar to <ClaudeLogo className="w-6 h-6 inline -mt-1 mr-1" />
-      Claude
+      <span className="whitespace-nowrap">
+        <Image
+          className="inline -mt-1 mr-[6px]"
+          src="/images/MACOSCalendar.png"
+          alt=""
+          width={28}
+          height={28}
+        />
+        Apple Calendar
+      </span>{" "}
+      to{" "}
+      <span className="whitespace-nowrap">
+        <ClaudeLogo className="w-6 h-6 inline -mt-1 mr-[6px]" />
+        Claude
+      </span>
     </h1>
   </section>
 );

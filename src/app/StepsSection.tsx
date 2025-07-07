@@ -42,7 +42,7 @@ const Step = ({
   <div className="flex">
     <div className="flex flex-col pr-4">
       <div
-        className={`text-xs h-4leading-none uppercase font-[family-name:var(--font-ibm-plex-mono)] transition-all duration-500 ${isActive ? "text-blue-700" : "text-zinc-500"}`}
+        className={`text-xs h-4leading-none uppercase font-mono transition-all duration-500 ${isActive ? "text-blue-700" : "text-zinc-500"}`}
       >
         0{number}
       </div>
