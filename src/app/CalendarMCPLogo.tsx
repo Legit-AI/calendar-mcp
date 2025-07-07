@@ -18,14 +18,15 @@ export const CalendarMCPLogo = (props: {
           patternUnits="userSpaceOnUse"
           patternTransform="rotate(90)"
         >
-          <rect width="6.25" height={15} fill="#9f9fa9" />
+          <rect width="6.25" height={15} fill="black" />
           <rect x="1" width="6.25" height={15} fill="white" />
         </pattern>
 
         <mask id="circle-mask">
-          <rect width="15" height="15" fill="white" />
+          <rect width="15" height="15" fill="black" />
+          <circle cx="7.5" cy="7.5" r="7.5" fill="white" />
           <circle cx="7.5" cy="7.5" r="4" fill="black" />
-          <rect x="7.5" y="3.75" width="7.5" height="7.5" fill="black" />
+          <rect x="7.5" y="6" width="7.5" height="3" fill="black" />
         </mask>
       </defs>
       <rect

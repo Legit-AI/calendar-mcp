@@ -38,8 +38,7 @@ const ClaudeWebMCPConfigurationInstructions = ({
   onCopyClick: () => any;
 }) => (
   <>
-    // TODO: Short step-by-step instructions on how to add a remote MCP to
-    Claude (web)
+    {/* TODO: Short step-by-step instructions on how to add a remote MCP to Claude (web) */}
     {/* <ul className="list-decimal">
       <li></li>
     </ul> */}
