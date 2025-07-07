@@ -96,8 +96,8 @@ export const StepsSection = () => {
         number={2}
         title="Add metadata"
       >
-        <div className="flex">
-          <div className="flex-1 flex flex-col pr-4">
+        <div className="flex max-xs:flex-col">
+          <div className="flex-1 flex flex-col max-xs:pb-4 xs:pr-4">
             <InputLabel>Calendar Name</InputLabel>
             <Input
               className="text-sm"

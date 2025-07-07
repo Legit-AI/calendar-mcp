@@ -11,17 +11,17 @@ const MCPURLBox = ({
   isCopied?: boolean;
   onCopyClick: () => any;
 }) => (
-  <div
-    className={`p-4 text-sm flex bg-zinc-100 font-[family-name:var(--font-ibm-plex-mono)] transition-all duration-500 ${isMcpUrlVisible ? "text-zinc-700" : "text-zinc-400"}`}
-  >
-    <div className="flex-1 select-all break-all">
+  <div className="p-4 text-sm flex flex-col bg-zinc-100 font-[family-name:var(--font-ibm-plex-mono)] transition-all duration-500">
+    <div
+      className={`flex-1 select-all break-all ${isMcpUrlVisible ? "text-zinc-700" : "text-zinc-400"}`}
+    >
       {isMcpUrlVisible ? mcpUrl : "Fill form to get URL..."}
     </div>
     <button
-      className={`cursor-pointer ml-4 px-4 py-2 border border-zinc-200 transition-all active:bg-zinc-100 active:scale-95 ${isCopied ? "bg-zinc-100" : "bg-white hover:bg-zinc-50"}`}
+      className={`cursor-pointer mt-4 px-4 py-2 border border-zinc-200 transition-all active:bg-zinc-100 active:scale-95 ${isCopied ? "bg-zinc-100 text-zinc-400" : "bg-white hover:bg-zinc-50"}`}
       onClick={() => onCopyClick()}
     >
-      Copy
+      {isCopied ? "Copied" : "Copy"}
     </button>
   </div>
 );
