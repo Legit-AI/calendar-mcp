@@ -42,11 +42,11 @@ const Step = ({
   <div className="flex">
     <div className="flex flex-col pr-4">
       <div
-        className={`text-xs uppercase font-[family-name:var(--font-ibm-plex-mono)] transition-all duration-500 ${isActive ? "text-blue-700" : "text-zinc-500"}`}
+        className={`text-xs h-4leading-none uppercase font-[family-name:var(--font-ibm-plex-mono)] transition-all duration-500 ${isActive ? "text-blue-700" : "text-zinc-500"}`}
       >
         0{number}
       </div>
-      {!isLast && <div className="m-auto flex-1 w-[1px] bg-zinc-200" />}
+      {!isLast && <div className="m-auto flex-1 w-[1px] my-4 bg-zinc-200" />}
     </div>
     <div
       className={`flex-1 flex flex-col transition-all duration-500 ${isLast ? "" : "pb-12"} ${isDisabled ? "opacity-40" : ""}`}
@@ -62,7 +62,6 @@ export const StepsSection = () => {
   const [calendarName, setCalendarName] = useState("");
   const [email, setEmail] = useState("");
   const [isCopied, setIsCopied] = useState(false);
-  const [isMcpUrlChanging, setIsMcpUrlChanging] = useState(false);
 
   const { success: isIcsUrlValid } = z.string().url().safeParse(icsUrl);
   const { success: isCalendarNameValid } = z
@@ -73,12 +72,7 @@ export const StepsSection = () => {
 
   const mcpUrl = `${
     process.env.VERCEL_PROJECT_PRODUCTION_URL ?? "http://localhost:3000/"
-  }api/mcp/?calendarName=${encodeURIComponent(calendarName)}&email=
-  ${encodeURIComponent(email)}icsUrl=
-  ${encodeURIComponent(icsUrl)}`;
-
-  const isMcpUrlVisible =
-    isIcsUrlValid && isCalendarNameValid && isEmailValid && !isMcpUrlChanging;
+  }api/mcp/?calendarName=${encodeURIComponent(calendarName)}&email=${encodeURIComponent(email)}&icsUrl=${encodeURIComponent(icsUrl)}`;
 
   return (
     <section className="px-4 pb-16 w-full flex flex-col max-w-2xl">
@@ -89,10 +83,7 @@ export const StepsSection = () => {
       >
         <Input
           placeholder="webcal://p136-caldav.icloud.com/published/2/RQFdadfgSDfgadsgfa4gq34AE€GAEFGASDFGArgADF_ASdfgadsfgAFdGAhgtrwf"
-          onChange={(event) => {
-            setIcsUrl(event.target.value);
-            setIsMcpUrlChanging(true);
-          }}
+          onChange={(event) => setIcsUrl(event.target.value)}
         />
       </Step>
       <Step
@@ -106,20 +97,14 @@ export const StepsSection = () => {
             <InputLabel>Calendar Name</InputLabel>
             <Input
               placeholder={"Tim's calendar, Work, Personal..."}
-              onChange={(event) => {
-                setCalendarName(event.target.value);
-                setIsMcpUrlChanging(true);
-              }}
+              onChange={(event) => setCalendarName(event.target.value)}
             />
           </div>
           <div className="flex-1 flex flex-col">
             <InputLabel>Your Email Address</InputLabel>
             <Input
               placeholder="tim@apple.com"
-              onChange={(event) => {
-                setEmail(event.target.value);
-                setIsMcpUrlChanging(true);
-              }}
+              onChange={(event) => setEmail(event.target.value)}
             />
           </div>
         </div>
@@ -133,15 +118,15 @@ export const StepsSection = () => {
         title="Copy MCP URL to Claude"
       >
         <div
-          className={`p-4 text-sm flex bg-zinc-100 font-[family-name:var(--font-ibm-plex-mono)] transition-all duration-500 ${isMcpUrlVisible ? "text-zinc-700" : "text-zinc-400"}`}
+          className={`p-4 text-sm flex bg-zinc-100 font-[family-name:var(--font-ibm-plex-mono)] transition-all duration-500 ${isIcsUrlValid && isCalendarNameValid && isEmailValid ? "text-zinc-700" : "text-zinc-400"}`}
         >
-          <div className="flex-1">
+          <div className="flex-1 select-all break-all">
             {isIcsUrlValid && isCalendarNameValid && isEmailValid
               ? mcpUrl
               : "Fill form to get URL..."}
           </div>
           <button
-            className={`cursor-pointer px-4 py-2 border border-zinc-200 transition-all active:bg-zinc-100 active:scale-95 ${isCopied ? "bg-zinc-100" : "bg-white hover:bg-zinc-50"}`}
+            className={`cursor-pointer ml-4 px-4 py-2 border border-zinc-200 transition-all active:bg-zinc-100 active:scale-95 ${isCopied ? "bg-zinc-100" : "bg-white hover:bg-zinc-50"}`}
             onClick={() => setIsCopied(true)}
           >
             Copy
