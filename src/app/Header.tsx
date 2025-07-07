@@ -7,7 +7,9 @@ export const Header = () => (
     <div className="flex-1 px-4 max-w-2xl">
       <div className="py-4 flex-1 flex justify-between border-b border-zinc-200">
         <Link href="/" className="flex items-center">
-          <CalendarMCPLogo className="w-12 h-12 mr-4" />
+          <div className="h-10 w-10 flex items-center justify-center bg-zinc-50 mr-4">
+            <CalendarMCPLogo className="w-6 h-6" />
+          </div>
           <div className="flex flex-col">
             <div className="">Calendar MCP</div>
             <div className="font-[family-name:var(--font-ibm-plex-mono)] text-zinc-400 text-xs">

@@ -10,7 +10,7 @@ import z from "zod";
 import { MCPConfigurationInstructions } from "./MCPConfigurationInstructions";
 
 const InputLabel = ({ children }: PropsWithChildren) => (
-  <label className="text-sm text-zinc-500">{children}</label>
+  <label className="text-sm text-zinc-500 leading-none pb-2">{children}</label>
 );
 
 const Input = (
@@ -82,6 +82,7 @@ export const StepsSection = () => {
         title="Copy public calendar link from iCloud"
       >
         <Input
+          className="font-mono text-sm"
           placeholder="webcal://p136-caldav.icloud.com/published/2/RQFdadfgSDfgadsgfa4gq34AE€GAEFGASDFGArgADF_ASdfgadsfgAFdGAhgtrwf"
           onChange={(event) => {
             setIcsUrl(event.target.value);
@@ -99,6 +100,7 @@ export const StepsSection = () => {
           <div className="flex-1 flex flex-col pr-4">
             <InputLabel>Calendar Name</InputLabel>
             <Input
+              className="text-sm"
               placeholder={"Tim's calendar, Work, Personal..."}
               onChange={(event) => {
                 setCalendarName(event.target.value);
@@ -109,6 +111,7 @@ export const StepsSection = () => {
           <div className="flex-1 flex flex-col">
             <InputLabel>Your Email Address</InputLabel>
             <Input
+              className="text-sm"
               placeholder="tim@apple.com"
               onChange={(event) => {
                 setEmail(event.target.value);
