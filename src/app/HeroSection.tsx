@@ -8,7 +8,7 @@ export const HeroSection = () => (
       <span className="whitespace-nowrap">
         <Image
           className="inline -mt-1 mr-[6px]"
-          src="/images/MACOSCalendar.png"
+          src="/images/mac-os-calendar-logo.png"
           alt=""
           width={28}
           height={28}
