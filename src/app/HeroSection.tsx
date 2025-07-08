@@ -7,11 +7,11 @@ export const HeroSection = () => (
       Connect{" "}
       <span className="whitespace-nowrap">
         <Image
-          className="inline -mt-1 mr-[6px]"
+          className="inline -mt-1 mr-[6px] w-7 h-7"
           src="/images/mac-os-calendar-logo.png"
           alt=""
-          width={28}
-          height={28}
+          width={128}
+          height={128}
         />
         Apple Calendar
       </span>{" "}
