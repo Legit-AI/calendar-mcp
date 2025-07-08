@@ -132,7 +132,10 @@ export const StepsSection = () => {
           mcpUrl={mcpUrl}
           isMcpUrlVisible={isIcsUrlValid && isCalendarNameValid && isEmailValid}
           isCopied={isCopied}
-          onCopyClick={() => setIsCopied(true)}
+          onCopyClick={() => {
+            navigator.clipboard.writeText(mcpUrl);
+            setIsCopied(true);
+          }}
         />
       </Step>
       <Step
