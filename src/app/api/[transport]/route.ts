@@ -50,7 +50,8 @@ const handler = (request: Request) => {
         calendarEventsFiltersSchemaShape,
         async (calendarEventsFilters) => {
           try {
-            const response = await fetch(icsUrl);
+            const fetchUrl = icsUrl.replace(/^webcal:\/\//, "https://");
+            const response = await fetch(fetchUrl);
             const fullICSContent = await response.text();
             const filteredICSContent = filterICSEvents(
               fullICSContent,
