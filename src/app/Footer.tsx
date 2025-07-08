@@ -23,10 +23,11 @@ export const Footer = () => (
           <LegitLogo className="w-10 h-10" />
         </Link>
         <div className="leading-relaxed pt-3 text-xs">
-          Built by&nbsp;
+          Built by{" "}
           <FooterLink href="https://www.linkedin.com/in/eliasylonen">
             Elias Ylönen
-          </FooterLink>{" "}
+          </FooterLink>
+          ,{" "}
           <FooterLink href="http://linkedin.com/in/akunikkola">
             Aku Nikkola
           </FooterLink>{" "}
