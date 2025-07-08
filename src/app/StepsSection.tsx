@@ -71,7 +71,7 @@ export const StepsSection = () => {
     .safeParse(calendarName);
   const { success: isEmailValid } = z.string().email().safeParse(email);
 
-  const mcpUrl = `${baseUrl}/api/mcp/?calendarName=${encodeURIComponent(calendarName)}&email=${encodeURIComponent(email)}&icsUrl=${encodeURIComponent(icsUrl)}`;
+  const mcpUrl = `${baseUrl}/api/mcp?calendarName=${encodeURIComponent(calendarName)}&email=${encodeURIComponent(email)}&icsUrl=${encodeURIComponent(icsUrl)}`;
 
   return (
     <section className="px-4 pb-16 w-full flex flex-col max-w-2xl">
