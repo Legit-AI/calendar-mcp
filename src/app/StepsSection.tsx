@@ -8,6 +8,7 @@ import {
 } from "react";
 import z from "zod";
 import { MCPConfigurationInstructions } from "./MCPConfigurationInstructions";
+import { baseUrl } from "./baseUrl";
 
 const InputLabel = ({ children }: PropsWithChildren) => (
   <label className="text-sm text-zinc-500 leading-none pb-2">{children}</label>
@@ -70,10 +71,7 @@ export const StepsSection = () => {
     .safeParse(calendarName);
   const { success: isEmailValid } = z.string().email().safeParse(email);
 
-  const mcpUrl = `${
-    process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL ??
-    "http://localhost:3000/"
-  }api/mcp/?calendarName=${encodeURIComponent(calendarName)}&email=${encodeURIComponent(email)}&icsUrl=${encodeURIComponent(icsUrl)}`;
+  const mcpUrl = `${baseUrl}/api/mcp/?calendarName=${encodeURIComponent(calendarName)}&email=${encodeURIComponent(email)}&icsUrl=${encodeURIComponent(icsUrl)}`;
 
   return (
     <section className="px-4 pb-16 w-full flex flex-col max-w-2xl">
