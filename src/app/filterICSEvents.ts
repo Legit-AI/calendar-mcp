@@ -1,8 +1,18 @@
 import { CalendarEventsFilters } from "./api/[transport]/route";
 
+const convertCompactISOToStandardISO = (compactISO: string): string => {
+  return compactISO.replace(
+    /(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/,
+    "$1-$2-$3T$4:$5:$6",
+  );
+};
+
 const getEventStartEpoch = (event: string) => {
-  const match = event.match(/DTSTART(?:;[^:]+)?:([^\r\n]+)/);
-  return match ? Date.parse(match[1]) || 0 : 0;
+  const compactISO = event.match(/^DTSTART(?:;[^:]+)?:([^\r\n]+)/m);
+  if (!compactISO) throw new Error("No event start epoch found");
+  const standardISO = convertCompactISOToStandardISO(compactISO[1]);
+  const epoch = Date.parse(standardISO);
+  return epoch;
 };
 
 const parseDate = (dateString: string) =>
@@ -10,15 +20,11 @@ const parseDate = (dateString: string) =>
 
 export const filterICSEvents = (
   fullICSContent: string,
-  {
-    page,
-    limit,
-    start_date,
-    end_date,
-    search_query,
-    organizer_email,
-  }: CalendarEventsFilters,
+  calendarEventsFilters: CalendarEventsFilters,
 ) => {
+  const { page, limit, start_date, end_date, search_query, organizer_email } =
+    calendarEventsFilters;
+
   const calendars = fullICSContent.match(
     /BEGIN:VCALENDAR[\s\S]*?END:VCALENDAR/gm,
   );
@@ -38,7 +44,8 @@ export const filterICSEvents = (
 
       const filteredEvents = sortedEvents.filter((event) => {
         const epoch = getEventStartEpoch(event);
-        if (epoch < startEpoch || epoch > endEpoch) return false;
+        if (start_date && epoch < startEpoch) return false;
+        if (end_date && epoch > endEpoch) return false;
 
         if (search_query) {
           const normalizedSearchQuery = search_query.toLowerCase();
