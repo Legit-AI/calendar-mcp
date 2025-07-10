@@ -14,19 +14,18 @@ const searchParamsSchema = z
     }),
   );
 
-const dateRegex = /^\d{4}-\d{2}-\d{2}$|^TODAY$/;
+const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
 
 const calendarEventsFiltersSchemaShape = {
   start_date: z
     .string()
-    .regex(dateRegex, "Must be in yyyy-mm-dd format or 'TODAY'")
-    .default("TODAY")
-    .describe("yyyy-mm-dd or TODAY"),
+    .regex(dateRegex, "Must be in yyyy-mm-dd format")
+    .describe("yyyy-mm-dd"),
   end_date: z
     .string()
-    .regex(dateRegex, "Must be in yyyy-mm-dd format or 'TODAY'")
+    .regex(dateRegex, "Must be in yyyy-mm-dd format")
     .optional()
-    .describe(`yyyy-mm-dd or TODAY`),
+    .describe(`yyyy-mm-dd`),
   search_query: z.string().optional(),
   organizer_email: z.string().email().optional(),
   page: z.number().int().min(1).default(1),
