@@ -60,18 +60,13 @@ const Step = ({
 
 export const StepsSection = () => {
   const [icsUrl, setIcsUrl] = useState("");
-  const [calendarName, setCalendarName] = useState("");
   const [email, setEmail] = useState("");
   const [isCopied, setIsCopied] = useState(false);
 
   const { success: isIcsUrlValid } = z.string().url().safeParse(icsUrl);
-  const { success: isCalendarNameValid } = z
-    .string()
-    .min(1)
-    .safeParse(calendarName);
   const { success: isEmailValid } = z.string().email().safeParse(email);
 
-  const mcpUrl = `${baseUrl}/api/mcp?calendarName=${encodeURIComponent(calendarName)}&email=${encodeURIComponent(email)}&icsUrl=${encodeURIComponent(icsUrl)}`;
+  const mcpUrl = `${baseUrl}/api/mcp?email=${encodeURIComponent(email)}&icsUrl=${encodeURIComponent(icsUrl)}`;
 
   return (
     <section className="px-4 pb-16 w-full flex flex-col max-w-2xl">
@@ -90,23 +85,12 @@ export const StepsSection = () => {
         />
       </Step>
       <Step
-        isActive={isIcsUrlValid && (!isCalendarNameValid || !isEmailValid)}
+        isActive={isIcsUrlValid && !isEmailValid}
         isDisabled={!isIcsUrlValid}
         number={2}
         title="Add metadata"
       >
         <div className="flex max-xs:flex-col">
-          <div className="flex-1 flex flex-col max-xs:pb-4 xs:pr-4">
-            <InputLabel>Calendar Name</InputLabel>
-            <Input
-              className="text-sm"
-              placeholder={"Tim's calendar, Work, Personal..."}
-              onChange={(event) => {
-                setCalendarName(event.target.value);
-                setIsCopied(false);
-              }}
-            />
-          </div>
           <div className="flex-1 flex flex-col">
             <InputLabel>Your Email Address</InputLabel>
             <Input
@@ -121,16 +105,14 @@ export const StepsSection = () => {
         </div>
       </Step>
       <Step
-        isActive={
-          isIcsUrlValid && isCalendarNameValid && isEmailValid && !isCopied
-        }
-        isDisabled={!isIcsUrlValid || !isCalendarNameValid || !isEmailValid}
+        isActive={isIcsUrlValid && isEmailValid && !isCopied}
+        isDisabled={!isIcsUrlValid || !isEmailValid}
         number={3}
         title="Copy MCP URL to Claude"
       >
         <MCPConfigurationInstructions
           mcpUrl={mcpUrl}
-          isMcpUrlVisible={isIcsUrlValid && isCalendarNameValid && isEmailValid}
+          isMcpUrlVisible={isIcsUrlValid && isEmailValid}
           isCopied={isCopied}
           onCopyClick={() => {
             navigator.clipboard.writeText(mcpUrl);
@@ -140,10 +122,8 @@ export const StepsSection = () => {
       </Step>
       <Step
         isLast
-        isActive={
-          isIcsUrlValid && isCalendarNameValid && isEmailValid && isCopied
-        }
-        isDisabled={!isIcsUrlValid || !isCalendarNameValid || !isEmailValid}
+        isActive={isIcsUrlValid && isEmailValid && isCopied}
+        isDisabled={!isIcsUrlValid || !isEmailValid}
         number={4}
         title="Ask Claude about your calendar"
       >

@@ -8,7 +8,6 @@ const searchParamsSchema = z
   .transform((sp) => Object.fromEntries(sp.entries()))
   .pipe(
     z.object({
-      calendarName: z.string().optional(),
       email: z.string().email().optional(),
       icsUrl: z.string().url(),
     }),
@@ -39,13 +38,13 @@ export type CalendarEventsFilters = z.infer<typeof calendarEventsFiltersSchema>;
 const handler = (request: Request) => {
   const urlSearchParams = new URL(request.url).searchParams;
   const searchParams = searchParamsSchema.parse(urlSearchParams);
-  const { email, icsUrl, calendarName } = searchParams;
+  const { email, icsUrl } = searchParams;
 
   return createMcpHandler(
     (server) => {
       server.tool(
-        `calendar_events${calendarName ? `_${toSnakeCase(calendarName)}` : ""}`,
-        `Fetch ${calendarName ? `"${calendarName}" ` : ""}calendar in iCal format. Filter and search events.`,
+        `calendar_events`,
+        `Fetch my calendar in iCal format. Filter and search events.`,
         calendarEventsFiltersSchemaShape,
         async (calendarEventsFilters) => {
           try {
