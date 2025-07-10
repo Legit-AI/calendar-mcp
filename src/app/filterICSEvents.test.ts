@@ -30,14 +30,28 @@ END:VCALENDAR`;
     const filters = {
       start_date: "2025-01-01",
       page: 1,
-      limit: 20
+      limit: 20,
     };
 
     const result = filterICSEvents(sampleICSContent, filters);
-    
+
     expect(result).toContain("BEGIN:VCALENDAR");
     expect(result).toContain("END:VCALENDAR");
     expect(result).toContain("Test Event");
   });
 
+  it("start and end dates should be inclusive", () => {
+    const filters = {
+      start_date: "2025-07-06",
+      end_date: "2025-07-06",
+      page: 1,
+      limit: 20,
+    };
+
+    const result = filterICSEvents(sampleICSContent, filters);
+
+    expect(result).toContain("BEGIN:VCALENDAR");
+    expect(result).toContain("END:VCALENDAR");
+    expect(result).toContain("Test Event");
+  });
 });

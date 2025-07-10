@@ -15,8 +15,7 @@ const getEventStartEpoch = (event: string) => {
   return epoch;
 };
 
-const parseDate = (dateString: string) =>
-  dateString === "TODAY" ? new Date() : new Date(`${dateString}T00:00:00Z`);
+const parseEpoch = (dateString: string) => new Date(`${dateString}T00:00:00`);
 
 export const filterICSEvents = (
   fullICSContent: string,
@@ -30,9 +29,11 @@ export const filterICSEvents = (
   );
 
   if (calendars === null) throw new Error("No calendars found in ICS file");
-  parseDate;
-  const startEpoch = start_date ? Date.parse(start_date) : 0;
-  const endEpoch = end_date ? Date.parse(end_date) : Number.MAX_SAFE_INTEGER;
+
+  const startEpoch = start_date ? parseEpoch(start_date).getTime() : undefined;
+  const endEpoch = end_date
+    ? parseEpoch(end_date).getTime() + 24 * 60 * 60 * 1000 - 1
+    : undefined;
 
   return calendars
     .map((calendar) => {
@@ -44,8 +45,8 @@ export const filterICSEvents = (
 
       const filteredEvents = sortedEvents.filter((event) => {
         const epoch = getEventStartEpoch(event);
-        if (start_date && epoch < startEpoch) return false;
-        if (end_date && epoch > endEpoch) return false;
+        if (startEpoch && epoch < startEpoch) return false;
+        if (endEpoch && epoch > endEpoch) return false;
 
         if (search_query) {
           const normalizedSearchQuery = search_query.toLowerCase();
