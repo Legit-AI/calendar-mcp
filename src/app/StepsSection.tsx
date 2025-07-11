@@ -8,6 +8,7 @@ import {
 } from "react";
 import z from "zod";
 import { MCPConfigurationInstructions } from "./MCPConfigurationInstructions";
+import { CalendarSharingInstructions } from "./CalendarSharingInstructions";
 import { baseUrl } from "./baseUrl";
 
 const InputLabel = ({ children }: PropsWithChildren) => (
@@ -73,8 +74,9 @@ export const StepsSection = () => {
       <Step
         isActive={!isIcsUrlValid}
         number={1}
-        title="Copy public calendar link from iCloud"
+        title="Copy public calendar link"
       >
+        <CalendarSharingInstructions />
         <Input
           className="font-mono text-sm"
           placeholder="webcal://p136-caldav.icloud.com/published/2/RQFdadfgSDfgadsgfa4gq34AE€GAEFGASDFGArgADF_ASdfgadsfgAFdGAhgtrwf"
