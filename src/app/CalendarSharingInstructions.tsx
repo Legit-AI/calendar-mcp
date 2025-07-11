@@ -9,6 +9,8 @@ export const CalendarSharingInstructions = () => {
       >
         Apple Calendar instructions
       </a>
+      <br className="sm:hidden" />
+      <br className="sm:hidden" />
       <a
         href="/images/calendar-sharing-instructions-outlook.png"
         target="_blank"
