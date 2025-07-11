@@ -1,13 +1,13 @@
 export const CalendarSharingInstructions = () => {
   return (
-    <div className="pb-4">
+    <div className="text-sm pb-4 leading-none">
       <a
         href="/images/calendar-sharing-instructions-icloud.png"
         target="_blank"
         rel="noopener noreferrer"
         className="text-blue-500 hover:text-blue-700 transition-colors mr-4"
       >
-        iCloud instructions
+        Apple Calendar instructions
       </a>
       <a
         href="/images/calendar-sharing-instructions-outlook.png"
@@ -15,7 +15,7 @@ export const CalendarSharingInstructions = () => {
         rel="noopener noreferrer"
         className="text-blue-500 hover:text-blue-700 transition-colors"
       >
-        Outlook instructions
+        Outlook Calendar instructions
       </a>
     </div>
   );

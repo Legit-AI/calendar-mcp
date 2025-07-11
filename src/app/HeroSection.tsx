@@ -13,7 +13,7 @@ export const HeroSection = () => (
           width={128}
           height={128}
         />
-        Apple Calendar
+        Calendar
       </span>{" "}
       to{" "}
       <span className="whitespace-nowrap">
