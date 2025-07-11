@@ -1,6 +1,8 @@
+import { CSSProperties } from "react";
+
 export const CalendarMCPLogo = (props: {
-  size?: string;
   className?: string;
+  style?: CSSProperties;
 }) => {
   const totalLines = 25;
   const stripeHeight = 15 / totalLines;
@@ -8,6 +10,7 @@ export const CalendarMCPLogo = (props: {
   return (
     <svg
       className={props.className}
+      style={props.style}
       width={15}
       height={15}
       viewBox="0 0 15 15"
