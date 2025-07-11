@@ -16,7 +16,8 @@ const ibmPlexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   title: "Calendar MCP",
-  description: "Connect Apple Calendar to Claude",
+  description:
+    "Connect Apple Calendar to Claude. An iCalendar (.ics) remote MCP server built by LEGIT.",
 };
 
 export default function RootLayout({
